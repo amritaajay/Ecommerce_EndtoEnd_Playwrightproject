@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { PageManager } from '../pages./PageManager';
+import { PageManager } from '../pages ./PageManager';
 
 test.describe('DemoBlaze Assignment Suite', () => {
   let pm: PageManager;
