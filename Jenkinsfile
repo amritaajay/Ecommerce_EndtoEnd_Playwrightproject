@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:${env.PATH}"
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
@@ -21,22 +25,8 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 echo 'Executing E2E tests...'
-                sh 'npx playwright test || true'
+                sh 'npx playwright test'
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Publishing HTML Report...'
-            publishHTML([
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'playwright-report',
-                reportFiles: 'index.html',
-                reportName: 'Playwright HTML Test Report'
-            ])
         }
     }
 }
